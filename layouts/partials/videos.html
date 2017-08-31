@@ -1,7 +1,8 @@
 {{ $pathStatic := printf "static/%s/" $.Params.id }}
 {{ $pathVideos := printf "static/%s/videos/" $.Params.id }}
 {{ $existsVideos := where (readDir $pathStatic) "Name" "videos" }}
-{{ $urlVideos := printf "%s/%s/videos/" $.Site.BaseURL $.Params.id }}
+{{ $urlStatic := trim (printf "%s/%s" (trim $.Site.BaseURL "/") $.Params.id) "/" }}
+{{ $urlVideos := printf "%s/videos" $urlStatic }}
 
 {{ if (lt $.Params.videos 1) }}
   <p>There are currently no videos available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
@@ -25,11 +26,11 @@
         {{ if (or .mov .mp4) }}, {{ end }}
       {{ end }}
       {{ if .mov }}
-        &nbsp;<a href="{{ $urlVideos }}{{ .mov }}">.mov</a>
+        &nbsp;<a href="{{ $urlVideos }}/{{ .mov }}">.mov</a>
         {{ if .mp4 }}, {{ end }}
       {{ end }}
       {{ if .mp4 }}
-        &nbsp;<a href="{{ $urlVideos }}{{ .mp4 }}">.mp4</a>
+        &nbsp;<a href="{{ $urlVideos }}/{{ .mp4 }}">.mp4</a>
       {{ end }}
     </p>
   {{ end }}

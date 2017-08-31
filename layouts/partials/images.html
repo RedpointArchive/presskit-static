@@ -1,7 +1,8 @@
 {{ $pathStatic := printf "static/%s/" $.Params.id }}
 {{ $pathImages := printf "static/%s/images/" $.Params.id }}
 {{ $existsImages := where (readDir $pathStatic) "Name" "images" }}
-{{ $urlImages := printf "%s/%s/images/" $.Site.BaseURL $.Params.id }}
+{{ $urlStatic := trim (printf "%s/%s" (trim $.Site.BaseURL "/") $.Params.id) "/" }}
+{{ $urlImages := printf "%s/images" $urlStatic }}
 
 {{ if (not $existsImages) }}
   <p>There are currently no images available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
@@ -13,7 +14,7 @@
   {{ end }}
   {{ if (gt (len $images) 0) }}
     {{ if $imagesZip }}
-      <a href="{{ $urlImages }}images.zip"><div class="uk-alert">download all screenshots &amp; photos as .zip ({{ div (index $imagesZip 0).Size 1024 }}KB)</div></a>
+      <a href="{{ $urlImages }}/images.zip"><div class="uk-alert">download all screenshots &amp; photos as .zip ({{ div (index $imagesZip 0).Size 1024 }}KB)</div></a>
     {{ end }}
     <div class="uk-grid images">
       {{ range $images }}
@@ -21,7 +22,7 @@
           {{ $ext := (substr .Name (sub (len .Name) 4)) }}
           {{ if (or (eq $ext ".jpg") (eq $ext ".png")) }}
           <div class="uk-width-medium-1-2">
-            <a href="{{ $urlImages }}{{ .Name }}"><img src="{{ $urlImages }}{{ .Name }}" alt="{{ .Name }}" /></a>
+            <a href="{{ printf "%s/%s" $urlImages .Name }}"><img src="{{ printf "%s/%s" $urlImages .Name }}" alt="{{ .Name }}" /></a>
           </div>
           {{ end }}
         {{ end }}

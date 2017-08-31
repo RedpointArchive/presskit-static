@@ -7,13 +7,9 @@
 {{ end }}
 {{ $company := $.Scratch.Get "company" }}
 {{ $companyUrl := $.Scratch.Get "companyUrl" }}
-{{ $pathStatic := printf "static/%s/" $.Params.id }}
 {{ $pathImages := printf "static/%s/images/" $.Params.id }}
-{{ $pathTrailers := printf "static/%s/trailers/" $.Params.id }}
-{{ $existsImages := where (readDir $pathStatic) "Name" "images" }}
-{{ $existsTrailers := where (readDir $pathStatic) "Name" "trailers" }}
-{{ $urlImages := printf "%s/%s/images/" $.Site.BaseURL $.Params.id }}
-{{ $urlTrailers := printf "%s/%s/trailers/" $.Site.BaseURL $.Params.id }}
+{{ $urlStatic := trim (printf "%s/%s" (trim $.Site.BaseURL "/") $.Params.id) "/" }}
+{{ $urlImages := printf "%s/images" $urlStatic }}
 {{ if (not $company) }}
 <p>
   The company field for the game is not valid!
@@ -27,7 +23,7 @@
 		
 		<title>{{ $company.Title }} - {{ .Title }}</title>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/1.2.0/css/uikit.gradient.min.css" rel="stylesheet" type="text/css">
-		<link href="{{ $.Site.BaseURL }}/asset/style.css" rel="stylesheet" type="text/css">
+		<link href="{{ trim $.Site.BaseURL "/" }}/asset/style.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>

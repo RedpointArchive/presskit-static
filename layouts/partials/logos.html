@@ -3,8 +3,9 @@
 {{ $pathLogos := printf "static/%s/logos/" $.Params.id }}
 {{ $existsImages := where (readDir $pathStatic) "Name" "images" }}
 {{ $existsLogos := where (readDir $pathStatic) "Name" "logos" }}
-{{ $urlImages := printf "%s/%s/images/" $.Site.BaseURL $.Params.id }}
-{{ $urlLogos := printf "%s/%s/logos/" $.Site.BaseURL $.Params.id }}
+{{ $urlStatic := trim (printf "%s/%s" (trim $.Site.BaseURL "/") $.Params.id) "/" }}
+{{ $urlImages := printf "%s/images" $urlStatic }}
+{{ $urlLogos := printf "%s/logos" $urlStatic }}
 
 {{ if (not (and $existsLogos $existsImages)) }}
   <p>There are currently no logos available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
@@ -13,7 +14,7 @@
   {{ $images := (readDir $pathImages) }}
   {{ $logosZip := (where $images "Name" "logo.zip") }}
   {{ if $logosZip }}
-    <a href="{{ $urlImages }}logo.zip"><div class="uk-alert">download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }})</div></a>
+    <a href="{{ printf "%s/%s" $urlImages "logo.zip" }}"><div class="uk-alert">download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }})</div></a>
   {{ end }}
   {{ if (lt (len $logos) 1) }}
     <p>There are currently no logos available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
@@ -27,7 +28,7 @@
         {{ $ext := (substr .Name (sub (len .Name) 4)) }}
         {{ if (or (eq $ext ".jpg") (eq $ext ".png")) }}
           <div class="uk-width-medium-1-2">
-            <a href="{{ $urlLogos }}{{ .Name }}"><img src="{{ $urlLogos }}{{ .Name }}" alt="logo" style="background-image: url({{ $.Site.BaseURL }}/asset/alpha.png);" /></a>
+            <a href="{{ printf "%s/%s" $urlLogos .Name }}"><img src="{{ printf "%s/%s" $urlLogos .Name }}" alt="logo" style="background-image: url({{ trim $.Site.BaseURL "/" }}/asset/alpha.png);" /></a>
           </div>
         {{ end }}
       {{ end }}

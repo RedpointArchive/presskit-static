@@ -1,7 +1,7 @@
+
 {{ $pathImages := printf "static/%s/images/" $.Params.id }}
-{{ $pathLogos := printf "static/%s/logos/" $.Params.id }}
-{{ $urlImages := printf "%s/%s/images/" $.Site.BaseURL $.Params.id }}
-{{ $urlLogos := printf "%s/%s/logos/" $.Site.BaseURL $.Params.id }}
+{{ $urlStatic := trim (printf "%s/%s" (trim $.Site.BaseURL "/") $.Params.id) "/" }}
+{{ $urlImages := printf "%s/images" $urlStatic }}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,7 +10,7 @@
 		
 		<title>{{ $.Title }}</title>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/1.2.0/css/uikit.gradient.min.css" rel="stylesheet" type="text/css">
-		<link href="{{ $.Site.BaseURL }}/asset/style.css" rel="stylesheet" type="text/css">
+		<link href="{{ trim $.Site.BaseURL "/" }}/asset/style.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
@@ -34,7 +34,7 @@
 				<div id="content" class="uk-width-medium-3-4">
           {{ $header := (readDir $pathImages) }}
           {{ if (where $header "Name" "header.png") }}
-          <img src="{{ $urlImages }}header.png" class="header">
+          <img src="{{ $urlImages }}/header.png" class="header">
           {{ end }}
           <div class="uk-grid">
 						<div class="uk-width-medium-2-6">
