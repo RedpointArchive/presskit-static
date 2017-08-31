@@ -14,7 +14,7 @@
   {{ $images := (readDir $pathImages) }}
   {{ $logosZip := (where $images "Name" "logo.zip") }}
   {{ if $logosZip }}
-    <a href="{{ printf "%s/%s" $urlImages "logo.zip" }}"><div class="uk-alert">download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }})</div></a>
+    <a href="{{ printf "%s/%s" $urlImages "logo.zip" }}"><div class="uk-alert">download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }}KB)</div></a>
   {{ end }}
   {{ if (lt (len $logos) 1) }}
     <p>There are currently no logos available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
