@@ -24,7 +24,7 @@ You can run Hugo as a server locally while you're writing content to preview it 
 
 ### 2. Add pages
 
-You now need to add pages to the `content/` directory.  Check out the `content-examples/` directory for some starting points on how to create presskit() pages.
+You now need to add pages to the `content/` directory.  You can copy the files inside `content-examples/` directory to your content directory to get a presskit up and running quickly.
 
 ### 3. Add images
 
