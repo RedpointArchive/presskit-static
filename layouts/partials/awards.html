@@ -1,0 +1,5 @@
+<ul>
+  {{ range $.Params.awards }}
+  <li>"{{ .description }}" {{ .info }}</li>
+  {{ end }}
+</ul>

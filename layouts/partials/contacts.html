@@ -1,0 +1,15 @@
+{{ range $.Params.contacts }}
+<p>
+  <strong>{{ .name }}</strong><br/>
+  {{ if (ne .mail nil) }}
+  <a href="mailto:{{ .mail }}">{{ .mail }}</a>
+  {{ end }}
+  {{ if (ne .link nil) }}
+    {{ if (ne .linkText nil) }}
+    <a href="{{ .link }}">{{ .linkText }}</a>
+    {{ else }}
+    <a href="{{ .link }}">{{ .link }}</a>
+    {{ end }}
+  {{ end }}
+</p>
+{{ end }}

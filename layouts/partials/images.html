@@ -1,0 +1,32 @@
+{{ $pathStatic := printf "static/%s/" $.Params.id }}
+{{ $pathImages := printf "static/%s/images/" $.Params.id }}
+{{ $existsImages := where (readDir $pathStatic) "Name" "images" }}
+{{ $urlImages := printf "%s/%s/images/" $.Site.BaseURL $.Params.id }}
+
+{{ if (not $existsImages) }}
+  <p>There are currently no images available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
+{{ else }}
+  {{ $images := (readDir $pathImages) }}
+  {{ $imagesZip := (where $images "Name" "images.zip") }}
+  {{ if (lt (len $images) 1) }}
+    <p>There are currently no images available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
+  {{ end }}
+  {{ if (gt (len $images) 0) }}
+    {{ if $imagesZip }}
+      <a href="{{ $urlImages }}images.zip"><div class="uk-alert">download all screenshots &amp; photos as .zip ({{ div (index $imagesZip 0).Size 1024 }}KB)</div></a>
+    {{ end }}
+    <div class="uk-grid images">
+      {{ range $images }}
+        {{ if (ne (substr .Name 0 7) "header.") }}
+          {{ $ext := (substr .Name (sub (len .Name) 4)) }}
+          {{ if (or (eq $ext ".jpg") (eq $ext ".png")) }}
+          <div class="uk-width-medium-1-2">
+            <a href="{{ $urlImages }}{{ .Name }}"><img src="{{ $urlImages }}{{ .Name }}" alt="{{ .Name }}" /></a>
+          </div>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>				
+    <p class="images-text"><br/>There are far more images available for {{ .Title }}, but these are the ones we felt would be most useful to you. If you have specific requests, please do <a href="#contact">contact us</a>!</p>
+  {{ end }}
+{{ end }}

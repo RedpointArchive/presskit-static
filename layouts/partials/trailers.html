@@ -1,0 +1,36 @@
+{{ $pathStatic := printf "static/%s/" $.Params.id }}
+{{ $pathTrailers := printf "static/%s/trailers/" $.Params.id }}
+{{ $existsTrailers := where (readDir $pathStatic) "Name" "trailers" }}
+{{ $urlTrailers := printf "%s/%s/trailers/" $.Site.BaseURL $.Params.id }}
+
+{{ if (lt $.Params.trailers 1) }}
+  <p>There are currently no trailers available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
+{{ end }}
+{{ if (gt $.Params.trailers 0) }}
+  {{ range $.Params.trailers }}
+    <p>
+      <strong>{{ .name }}</strong>&nbsp;
+      {{ if .youtube }}
+        <a href="https://www.youtube.com/watch?v={{ .youtube }}">YouTube</a>
+        <div class="uk-responsive-width iframe-container">
+          <iframe src="https://www.youtube.com/embed/{{ .youtube }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        {{ if (or .vimeo (or .mov .mp4)) }}, {{ end }}
+      {{ end }}
+      {{ if .vimeo }}
+        &nbsp;<a href="https://www.vimeo.com/{{ .vimeo }}">Vimeo</a>
+        <div class="uk-responsive-width iframe-container">
+          <iframe src="https://player.vimeo.com/video/{{ .vimeo }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        {{ if (or .mov .mp4) }}, {{ end }}
+      {{ end }}
+      {{ if .mov }}
+        &nbsp;<a href="{{ $urlTrailers }}{{ .mov }}">.mov</a>
+        {{ if .mp4 }}, {{ end }}
+      {{ end }}
+      {{ if .mp4 }}
+        &nbsp;<a href="{{ $urlTrailers }}{{ .mp4 }}">.mp4</a>
+      {{ end }}
+    </p>
+  {{ end }}
+{{ end }}

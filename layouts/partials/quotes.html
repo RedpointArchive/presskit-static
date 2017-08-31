@@ -1,0 +1,8 @@
+<ul>
+  {{ range $.Params.quotes }}
+  <li>
+    "{{ .quote }}" <br/>
+    <cite>- {{ .name }}, <a href="{{ .link }}">{{ .website }}</a></cite>
+  </li>
+  {{ end }}
+</ul>

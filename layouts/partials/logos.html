@@ -1,0 +1,36 @@
+{{ $pathStatic := printf "static/%s/" $.Params.id }}
+{{ $pathImages := printf "static/%s/images/" $.Params.id }}
+{{ $pathLogos := printf "static/%s/logos/" $.Params.id }}
+{{ $existsImages := where (readDir $pathStatic) "Name" "images" }}
+{{ $existsLogos := where (readDir $pathStatic) "Name" "logos" }}
+{{ $urlImages := printf "%s/%s/images/" $.Site.BaseURL $.Params.id }}
+{{ $urlLogos := printf "%s/%s/logos/" $.Site.BaseURL $.Params.id }}
+
+{{ if (not (and $existsLogos $existsImages)) }}
+  <p>There are currently no logos available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
+{{ else }}
+  {{ $logos := (readDir $pathLogos) }}
+  {{ $images := (readDir $pathImages) }}
+  {{ $logosZip := (where $images "Name" "logo.zip") }}
+  {{ if $logosZip }}
+    <a href="{{ $urlImages }}logo.zip"><div class="uk-alert">download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }})</div></a>
+  {{ end }}
+  {{ if (lt (len $logos) 1) }}
+    <p>There are currently no logos available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
+  {{ end }}
+  {{ if (gt (len $logos) 0) }}
+    {{ if $.Params.preferalphasquare }}
+      <div class="uk-alert uk-alert-warning">Where possible, please use the version of the logo with transparency, as long as the logo is clear and readable on the underlying background.  If placing the logo in a square area, use one of the square logos.</div>
+    {{ end }}
+    <div class="uk-grid images">
+      {{ range $logos }}
+        {{ $ext := (substr .Name (sub (len .Name) 4)) }}
+        {{ if (or (eq $ext ".jpg") (eq $ext ".png")) }}
+          <div class="uk-width-medium-1-2">
+            <a href="{{ $urlLogos }}{{ .Name }}"><img src="{{ $urlLogos }}{{ .Name }}" alt="logo" style="background-image: url({{ $.Site.BaseURL }}/asset/alpha.png);" /></a>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ end }}
+{{ end }}
