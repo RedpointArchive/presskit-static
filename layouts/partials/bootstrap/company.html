@@ -38,94 +38,96 @@
 						<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
 					</ul>
         </div>
-        <div class="col-12 col-sm-9" id="main">
+        <div class="col-12 col-sm-9 p-0" id="main">
           {{ $header := (readDir $pathImages) }}
           {{ if (where $header "Name" "header.png") }}
-          <img src="{{ $urlImages }}/header.png" class="img-fluid">
+          <img src="{{ $urlImages }}/header.png" class="img-fluid" />
           {{ end }}
-          <div class="row mt-0 mt-sm-4">
-            <div class="col-12 col-md-5 col-lg-4 col-xl-3">
-							<h2 id="factsheet">Factsheet</h2>
-							<p>
-								<strong>Developer:</strong><br/>
-								<a href="{{ $.Params.website.link }}">{{ $.Params.title }}</a><br/>
-								Based in {{ $.Params.basedin }}
-							</p>
-							<p>
-								<strong>Founding date:</strong><br/>
-								{{ $.Params.foundingdate }}
-							</p>
-							<p>
-								<strong>Website:</strong><br/>
-								<a href="{{ $.Params.website.link }}">{{ $.Params.website.name }}</a>
-							</p>
-							<p>
-								<strong>Press / Business contact:</strong><br/>
-								<a href="mailto:{{ $.Params.pressContact }}">{{ $.Params.pressContact }}</a>
-							</p>
-              {{ if (gt $.Params.social 0 ) }}
-                <p>
-									<strong>Social:</strong><br/>
-									{{ range $.Params.social }}
-										<a href="{{ .link }}">{{ .name }}</a><br/>
-									{{ end }}
-                </p>
-              {{ end }}
-              {{ if (gt $.Params.releases 0 ) }}
-                <p>
-									<strong>Releases:</strong><br />
-									{{ range $.Params.releases }}
-										<a href="{{ relref $.Page . }}">{{ ($.Site.GetPage "page" .).Title }}</a><br />
-									{{ end }}
-                </p>
-              {{ end }}
-            </div>
-            <div class="col-12 col-md-7 col-lg-8 col-xl-9">
-              {{ .Content }}
-							{{ if (gt $.Params.releases 0 ) }}
-							<h2 id="projects">Projects</h2>
-								<ul>
-								{{ range $.Params.releases }}
-									<li><a href="{{ relref $.Page . }}">{{ ($.Site.GetPage "page" .).Title }}</a></li>
+          <div class="col-12">
+            <div class="row mt-0">
+							<div class="col-12 col-md-5 col-lg-4 col-xl-3">
+								<h2 id="factsheet">Factsheet</h2>
+								<p>
+									<strong>Developer:</strong><br/>
+									<a href="{{ $.Params.website.link }}">{{ $.Params.title }}</a><br/>
+									Based in {{ $.Params.basedin }}
+								</p>
+								<p>
+									<strong>Founding date:</strong><br/>
+									{{ $.Params.foundingdate }}
+								</p>
+								<p>
+									<strong>Website:</strong><br/>
+									<a href="{{ $.Params.website.link }}">{{ $.Params.website.name }}</a>
+								</p>
+								<p>
+									<strong>Press / Business contact:</strong><br/>
+									<a href="mailto:{{ $.Params.pressContact }}">{{ $.Params.pressContact }}</a>
+								</p>
+								{{ if (gt $.Params.social 0 ) }}
+									<p>
+										<strong>Social:</strong><br/>
+										{{ range $.Params.social }}
+											<a href="{{ .link }}">{{ .name }}</a><br/>
+										{{ end }}
+									</p>
 								{{ end }}
-								</ul>
-							{{ end }}
+								{{ if (gt $.Params.releases 0 ) }}
+									<p>
+										<strong>Releases:</strong><br />
+										{{ range $.Params.releases }}
+											<a href="{{ relref $.Page . }}">{{ ($.Site.GetPage "page" .).Title }}</a><br />
+										{{ end }}
+									</p>
+								{{ end }}
+							</div>
+							<div class="col-12 col-md-7 col-lg-8 col-xl-9">
+								{{ .Content }}
+								{{ if (gt $.Params.releases 0 ) }}
+								<h2 id="projects">Projects</h2>
+									<ul>
+									{{ range $.Params.releases }}
+										<li><a href="{{ relref $.Page . }}">{{ ($.Site.GetPage "page" .).Title }}</a></li>
+									{{ end }}
+									</ul>
+								{{ end }}
+							</div>
 						</div>
+
+						<hr>
+
+						<h2 id="trailers">Videos</h2>
+						{{ partial "videos.html" . }}
+						<hr>
+
+						<h2 id="images">Images</h2>
+						{{ partial "images.html" . }}
+						<hr>
+
+						<h2 id="logo">Logo &amp; Icon</h2>
+						{{ partial "logos.html" . }}
+						<hr>
+						
+						<div class="row">
+							<div class="col-12 col-sm-6">
+								<h2 id="credits">Members</h2>
+								{{ range $.Params.team }}
+								<p>
+									<strong>{{ .person }}{{ if .mail }} (<a href="mailto:{{ .mail }}">Email</a>){{ end }}</strong><br/>
+									{{ .role }}
+								</p>
+								{{ end }}
+							</div>
+							<div class="col-12 col-sm-6">
+								<h2 id="contact">Contact</h2>
+								{{ partial "contacts.html" . }}
+							</div>
+						</div>
+
+						<hr>
+
+						<p>{{ partial "footer.html" . }}</p>
 					</div>
-
-					<hr>
-
-          <h2 id="trailers">Videos</h2>
-          {{ partial "videos.html" . }}
-					<hr>
-
-					<h2 id="images">Images</h2>
-					{{ partial "images.html" . }}
-					<hr>
-
-					<h2 id="logo">Logo &amp; Icon</h2>
-          {{ partial "logos.html" . }}
-					<hr>
-					
-					<div class="row">
-						<div class="col-12 col-sm-6">
-							<h2 id="credits">Members</h2>
-							{{ range $.Params.team }}
-							<p>
-								<strong>{{ .person }}{{ if .mail }} (<a href="mailto:{{ .mail }}">Email</a>){{ end }}</strong><br/>
-								{{ .role }}
-							</p>
-							{{ end }}
-						</div>
-						<div class="col-12 col-sm-6">
-							<h2 id="contact">Contact</h2>
-							{{ partial "contacts.html" . }}
-						</div>
-					</div>
-
-					<hr>
-
-					<p>{{ partial "footer.html" . }}</p>
 				</div>
 			</div>
 		</div>
