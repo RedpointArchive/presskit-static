@@ -49,6 +49,20 @@ hugo -d ./dist
 
 The `dist` folder will now have a set of static HTML files, images and other assets you can directly upload to S3 or Google Cloud Storage.
 
+## Options
+
+### Enable responsive Bootstrap
+
+By default, presskit-static uses the same theming as the official presskit project to ensure compatibility with existing presskits that want to migrate. However you can enable a Bootstrap-enabled responsive layout by adding the following property to any pages you define:
+
+```yaml
+style: bootstrap
+```
+
+### Custom styling
+
+You can add custom styles to any page by placing `.css` files next to the `images` folder inside `static` for any given page. This is only supported on Bootstrap-enabled pages.
+
 ## License
 
 ```
