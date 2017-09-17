@@ -19,14 +19,14 @@ team:
   - person: June Rhodes
     mail: jrhodes@redpoint.games
     role: Technical Director
-  - person: Joshua Harvey
+  - person: Josh Harvey
     mail: jharvey@redpoint.games
     role: Creative Director
   - person: Liam Alkamraikhi
     mail: liam@redpoint.games
     role: Art Director
 contacts:
-  - name: Joshua Harvey (Press/PR/Marketing)
+  - name: Josh Harvey (Press/PR/Marketing)
     mail: jharvey@redpoint.games
   - name: June Rhodes (Technical Support)
     mail: jrhodes@redpoint.games

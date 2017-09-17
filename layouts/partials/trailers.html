@@ -9,29 +9,49 @@
 {{ end }}
 {{ if (gt $.Params.trailers 0) }}
   {{ range $.Params.trailers }}
+    {{ if (eq $.Params.style "bootstrap") }}
+    <div class="card">
+    {{ else }}
     <p>
       <strong>{{ .name }}</strong>&nbsp;
-      {{ if .youtube }}
+    {{ end }}
+    {{ if .youtube }}
+      {{ if (eq $.Params.style "bootstrap") }}
+        <div class="card-img-top embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="//www.youtube.com/embed/{{ .youtube }}"></iframe>
+        </div>
+        <!--<div class="card-img-top video-16-9">
+          <iframe src="https://www.youtube.com/embed/{{ .youtube }}" frameborder="0" allowfullscreen></iframe>
+        </div>-->
+        <div class="card-body">
+          <p class="card-text"><strong>{{ .name }}</strong> &bull; <a href="https://www.youtube.com/watch?v={{ .youtube }}">YouTube</a></p>
+        </div>
+      {{ else }}
         <a href="https://www.youtube.com/watch?v={{ .youtube }}">YouTube</a>
         <div class="uk-responsive-width iframe-container">
           <iframe src="https://www.youtube.com/embed/{{ .youtube }}" frameborder="0" allowfullscreen></iframe>
         </div>
         {{ if (or .vimeo (or .mov .mp4)) }}, {{ end }}
       {{ end }}
-      {{ if .vimeo }}
-        &nbsp;<a href="https://www.vimeo.com/{{ .vimeo }}">Vimeo</a>
-        <div class="uk-responsive-width iframe-container">
-          <iframe src="https://player.vimeo.com/video/{{ .vimeo }}" frameborder="0" allowfullscreen></iframe>
-        </div>
-        {{ if (or .mov .mp4) }}, {{ end }}
-      {{ end }}
-      {{ if .mov }}
-        &nbsp;<a href="{{ printf "%s/%s" $urlTrailers .mov }}">.mov</a>
-        {{ if .mp4 }}, {{ end }}
-      {{ end }}
-      {{ if .mp4 }}
-        &nbsp;<a href="{{ printf "%s/%s" $urlTrailers .mp4 }}">.mp4</a>
-      {{ end }}
+    {{ end }}
+    {{ if .vimeo }}
+      &nbsp;<a href="https://www.vimeo.com/{{ .vimeo }}">Vimeo</a>
+      <div class="uk-responsive-width iframe-container">
+        <iframe src="https://player.vimeo.com/video/{{ .vimeo }}" frameborder="0" allowfullscreen></iframe>
+      </div>
+      {{ if (or .mov .mp4) }}, {{ end }}
+    {{ end }}
+    {{ if .mov }}
+      &nbsp;<a href="{{ printf "%s/%s" $urlTrailers .mov }}">.mov</a>
+      {{ if .mp4 }}, {{ end }}
+    {{ end }}
+    {{ if .mp4 }}
+      &nbsp;<a href="{{ printf "%s/%s" $urlTrailers .mp4 }}">.mp4</a>
+    {{ end }}
+    {{ if (eq $.Params.style "bootstrap") }}
+    </div>
+    {{ else }}
     </p>
+    {{ end }}
   {{ end }}
 {{ end }}

@@ -14,22 +14,50 @@
   {{ $images := (readDir $pathImages) }}
   {{ $logosZip := (where $images "Name" "logo.zip") }}
   {{ if $logosZip }}
-    <a href="{{ printf "%s/%s" $urlImages "logo.zip" }}"><div class="uk-alert">download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }}KB)</div></a>
+    {{ if (eq $.Params.style "bootstrap") }}
+      <a href="{{ printf "%s/%s" $urlImages "logo.zip" }}">
+        <div class="alert alert-info" role="alert">
+          download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }}KB)
+        </div>
+      </a>
+    {{ else }}
+      <a href="{{ printf "%s/%s" $urlImages "logo.zip" }}"><div class="uk-alert">download logo files as .zip ({{ div (index $logosZip 0).Size 1024 }}KB)</div></a>
+    {{ end }}
   {{ end }}
   {{ if (lt (len $logos) 1) }}
     <p>There are currently no logos available for {{ $.Title }}. Check back later for more or <a href="#contact">contact us</a> for specific requests!</p>
   {{ end }}
   {{ if (gt (len $logos) 0) }}
     {{ if $.Params.preferalphasquare }}
-      <div class="uk-alert uk-alert-warning">Where possible, please use the version of the logo with transparency, as long as the logo is clear and readable on the underlying background.  If placing the logo in a square area, use one of the square logos.</div>
+      {{ if (eq $.Params.style "bootstrap") }}
+        <a href="{{ $urlImages }}/images.zip">
+          <div class="alert alert-danger" role="alert">
+            Where possible, please use the version of the logo with transparency, as long as the logo is clear and readable on the underlying background.  If placing the logo in a square area, use one of the square logos.
+          </div>
+        </a>
+      {{ else }}
+        <div class="uk-alert uk-alert-warning">Where possible, please use the version of the logo with transparency, as long as the logo is clear and readable on the underlying background.  If placing the logo in a square area, use one of the square logos.</div>
+      {{ end }}
     {{ end }}
+    {{ if (eq $.Params.style "bootstrap") }}
+    <div class="card-columns">
+    {{ else }}
     <div class="uk-grid images">
+    {{ end }}
       {{ range $logos }}
         {{ $ext := (substr .Name (sub (len .Name) 4)) }}
         {{ if (or (eq $ext ".jpg") (eq $ext ".png")) }}
-          <div class="uk-width-medium-1-2">
-            <a href="{{ printf "%s/%s" $urlLogos .Name }}"><img src="{{ printf "%s/%s" $urlLogos .Name }}" alt="logo" style="background-image: url({{ trim $.Site.BaseURL "/" }}/asset/alpha.png);" /></a>
-          </div>
+          {{ if (eq $.Params.style "bootstrap") }}
+            <div class="card">
+              <a href="{{ printf "%s/%s" $urlLogos .Name }}">
+                <img class="card-img img-fluid" src="{{ printf "%s/%s" $urlLogos .Name }}" alt="{{ .Name }}" style="background-image: url({{ trim $.Site.BaseURL "/" }}/asset/alpha.png);" />
+              </a>
+            </div>
+          {{ else }}
+            <div class="uk-width-medium-1-2">
+              <a href="{{ printf "%s/%s" $urlLogos .Name }}"><img src="{{ printf "%s/%s" $urlLogos .Name }}" alt="logo" style="background-image: url({{ trim $.Site.BaseURL "/" }}/asset/alpha.png);" /></a>
+            </div>
+          {{ end }}
         {{ end }}
       {{ end }}
     </div>

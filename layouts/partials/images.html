@@ -14,16 +14,36 @@
   {{ end }}
   {{ if (gt (len $images) 0) }}
     {{ if $imagesZip }}
+      {{ if (eq $.Params.style "bootstrap") }}
+        <a href="{{ $urlImages }}/images.zip">
+          <div class="alert alert-info" role="alert">
+            download all screenshots &amp; photos as .zip ({{ div (index $imagesZip 0).Size 1024 }}KB)
+          </div>
+        </a>
+      {{ else }}
       <a href="{{ $urlImages }}/images.zip"><div class="uk-alert">download all screenshots &amp; photos as .zip ({{ div (index $imagesZip 0).Size 1024 }}KB)</div></a>
+      {{ end }}
     {{ end }}
+    {{ if (eq $.Params.style "bootstrap") }}
+    <div class="card-columns">
+    {{ else }}
     <div class="uk-grid images">
+    {{ end }}
       {{ range $images }}
         {{ if (ne (substr .Name 0 7) "header.") }}
           {{ $ext := (substr .Name (sub (len .Name) 4)) }}
           {{ if (or (eq $ext ".jpg") (eq $ext ".png")) }}
-          <div class="uk-width-medium-1-2">
-            <a href="{{ printf "%s/%s" $urlImages .Name }}"><img src="{{ printf "%s/%s" $urlImages .Name }}" alt="{{ .Name }}" /></a>
-          </div>
+            {{ if (eq $.Params.style "bootstrap") }}
+              <div class="card">
+                <a href="{{ printf "%s/%s" $urlImages .Name }}">
+                  <img class="card-img img-fluid" src="{{ printf "%s/%s" $urlImages .Name }}" alt="{{ .Name }}">
+                </a>
+              </div>
+            {{ else }}
+              <div class="uk-width-medium-1-2 image">
+                <a href="{{ printf "%s/%s" $urlImages .Name }}"><img src="{{ printf "%s/%s" $urlImages .Name }}" alt="{{ .Name }}" /></a>
+              </div>
+            {{ end }}
           {{ end }}
         {{ end }}
       {{ end }}

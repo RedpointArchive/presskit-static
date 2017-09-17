@@ -1,0 +1,69 @@
+html {
+  font-size: 80%;
+  padding: 0em;
+}
+
+div.anchored {
+  position: fixed;
+}
+
+#navigation {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+#main {
+  padding-top: 25px;
+}
+
+.nav-up {
+  padding: 0px 15px;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+li.nav-item > a.nav-link {
+  padding: 5px 15px;
+  border: solid 1px rgba(0, 0, 0, 0);
+  color: #444;
+  outline: 0;
+}
+
+li.nav-item > a.nav-link:hover {
+  background: rgba(0,0,0,0.03);
+  box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+  text-shadow: 0 -1px 0 #fff;
+}
+
+h2 {
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+h2.section {
+  margin-bottom: 20px;
+}
+
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 34em) {
+  .card-columns {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  @media (min-width: 576px) {
+    h1 {
+      font-size: 160%;
+    }
+  }
+}

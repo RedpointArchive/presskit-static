@@ -55,13 +55,13 @@ credits:
   - person: June Rhodes
     mail: jrhodes@redpoint.games
     role: Lead Developer
-  - person: Joshua Harvey
+  - person: Josh Harvey
     mail: jharvey@redpoint.games
     role: Level Design
   - person: Jeremy Burns
     role: Music
 contacts:
-  - name: Joshua Harvey (Press/PR/Marketing)
+  - name: Josh Harvey (Press/PR/Marketing)
     mail: jharvey@redpoint.games
   - name: June Rhodes (Technical Support)
     mail: jrhodes@redpoint.games

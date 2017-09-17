@@ -1,0 +1,18 @@
+{{ if (gt $.Params.prices 0) }}
+  <strong>Regular Price:</strong>
+  <table>
+    {{ range $.Params.prices }}
+      <tr>
+        {{ if (ne .custom nil) }}
+          <td colspan="2">{{ .custom }}</td>
+        {{ else }}
+          <td>{{ .currency }}</td>
+          <td>{{ .value }}</td>
+        {{ end }}
+      </tr>
+    {{ end }}
+  </table>
+  {{ if (eq $.Params.style "bootstrap") }}
+    <br />
+  {{ end }}
+{{ end }}
