@@ -11,7 +11,7 @@
 	<meta name="description" content="{{ .Description }}">
 	<meta name="author" content="{{ $.Title }}">
 	<title>{{ $.Title }}</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.css">
 	<link href="{{ trim $.Site.BaseURL "/" }}/asset/style-bootstrap.css" rel="stylesheet" type="text/css">
 	{{ $styles := (readDir $pathStyles) }}
 	{{ range $styles }}
