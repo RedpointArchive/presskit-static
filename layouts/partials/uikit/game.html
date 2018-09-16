@@ -1,9 +1,9 @@
 {{ if (eq $.Params.company "_index") }}
-  {{ $.Scratch.Set "company" ($.Site.GetPage "home" "") }}
-  {{ $.Scratch.Set "companyUrl" $.Site.BaseURL }}
+	{{ $.Scratch.Set "company" ($.Site.GetPage "home" "") }}
+	{{ $.Scratch.Set "companyUrl" $.Site.BaseURL }}
 {{ else }}
-  {{ $.Scratch.Set "company" ($.Site.GetPage "page" $.Params.company) }}
-  {{ $.Scratch.Set "companyUrl" (relref . (printf "%s.md" $.Params.company)) }}
+	{{ $.Scratch.Set "company" ($.Site.GetPage "page" $.Params.company) }}
+	{{ $.Scratch.Set "companyUrl" (relref . (printf "%s.md" $.Params.company)) }}
 {{ end }}
 {{ $company := $.Scratch.Get "company" }}
 {{ $companyUrl := $.Scratch.Get "companyUrl" }}
@@ -11,221 +11,231 @@
 {{ $urlStatic := trim (printf "%s/%s" (trim $.Site.BaseURL "/") $.Params.id) "/" }}
 {{ $urlImages := printf "%s/images" $urlStatic }}
 {{ if (not $company) }}
-<p>
-  The company field for the game is not valid!
-</p>
+	<p>
+		The company field for the game is not valid!
+	</p>
 {{ else }}
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<title>{{ $company.Title }} - {{ .Title }}</title>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/1.2.0/css/uikit.gradient.min.css" rel="stylesheet" type="text/css">
-    <link href="{{ trim $.Site.BaseURL "/" }}/asset/style.css" rel="stylesheet" type="text/css">
-	</head>
 
-	<body>
-		<div class="uk-container uk-container-center">
-			<div class="uk-grid">
-				<div id="navigation" class="uk-width-medium-1-4">
-					<h1 class="nav-header">{{ $company.Title }}</h1>
-					<a class="nav-header" href="{{ $companyUrl }}" target="_self">press kit</a></strong>
-					<ul class="uk-nav uk-nav-side">
-            <li><a href="#factsheet">Factsheet</a></li>
-						<li><a href="#description">Description</a></li>
-						<li><a href="#history">History</a></li>
-						<li><a href="#projects">Projects</a></li>
-						<li><a href="#trailers">Videos</a></li>
-						<li><a href="#images">Images</a></li>
-            <li><a href="#logo">Logo &amp; Icon</a></li>
-            {{ if $.Params.awards }}
-              {{ if gt $.Params.awards 0 }}
-                <li><a href="#awards">Awards &amp; Recognition</a></li>
-              {{ end }}
-            {{ end }}
-            {{ if $.Params.quotes }}
-              {{ if gt $.Params.quotes 0 }}
-                <li><a href="#quotes">Selected Articles</a></li>
-              {{ end }}
-            {{ end }}
-            {{ if $.Params.additionals }}
-              {{ if gt $.Params.additionals 0 }}
-                <li><a href="#additionals">Additional Links</a></li>
-              {{ end }}
-            {{ end }}
-            {{ if ne $.Params.monetization nil }}
-              <li><a href="#monetize">Monetization Permission</a></li>
-            {{ end }}
-						<li><a href="#about">About {{ $company.Title }}</a></li>
-						<li><a href="#credits">Team</a></li>
-						<li><a href="#contact">Contact</a></li>
-					</ul>
-				</div>
-				<div id="content" class="uk-width-medium-3-4">
-          {{ $header := (readDir $pathImages) }}
-          {{ if (where $header "Name" "header.png") }}
-          <img src="{{ $urlImages }}/header.png" class="header">
-          {{ end }}
-          <div class="uk-grid">
-						<div class="uk-width-medium-2-6">
-							<h2 id="factsheet">Factsheet</h2>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{ $company.Title }} - {{ .Title }}</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/1.2.0/css/uikit.gradient.min.css" rel="stylesheet" type="text/css">
+	<link href="{{ trim $.Site.BaseURL "/" }}/asset/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div class="uk-container uk-container-center">
+		<div class="uk-grid">
+			<div id="navigation" class="uk-width-medium-1-4">
+				<h1 class="nav-header">{{ $company.Title }}</h1>
+				<a class="nav-header" href="{{ $companyUrl }}" target="_self">press kit</a></strong>
+				<ul class="uk-nav uk-nav-side">
+					<li><a href="#factsheet">Factsheet</a></li>
+					<li><a href="#description">Description</a></li>
+					<li><a href="#history">History</a></li>
+					<li><a href="#projects">Projects</a></li>
+					<li><a href="#trailers">Videos</a></li>
+					<li><a href="#images">Images</a></li>
+					<li><a href="#logo">Logo &amp; Icon</a></li>
+					{{ if $.Params.awards }}
+						{{ if gt $.Params.awards 0 }}
+							<li><a href="#awards">Awards &amp; Recognition</a></li>
+						{{ end }}
+					{{ end }}
+					{{ if $.Params.quotes }}
+						{{ if gt $.Params.quotes 0 }}
+							<li><a href="#quotes">Selected Articles</a></li>
+						{{ end }}
+					{{ end }}
+					{{ if $.Params.additionals }}
+						{{ if gt $.Params.additionals 0 }}
+							<li><a href="#additionals">Additional Links</a></li>
+						{{ end }}
+					{{ end }}
+					{{ if ne $.Params.monetization nil }}
+						<li><a href="#monetize">Monetization Permission</a></li>
+					{{ end }}
+					<li><a href="#about">About {{ $company.Title }}</a></li>
+					<li><a href="#credits">Team</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div>
+			<div id="content" class="uk-width-medium-3-4">
+				{{ $header := (readDir $pathImages) }}
+				{{ if (where $header "Name" "header.png") }}
+					<img src="{{ $urlImages }}/header.png" class="header">
+				{{ end }}
+				<div class="uk-grid">
+					<div class="uk-width-medium-2-6">
+						<h2 id="factsheet">Factsheet</h2>
+						<p>
+							<strong>Developer:</strong><br />
+							<a href="{{ $companyUrl }}">{{ $company.Title }}</a><br />
+							Based in {{ $company.Params.basedin }}
+						</p>
+						<p>
+							<strong>Release date:</strong><br />
+							{{ $.Params.releaseDate }}
+						</p>
+						{{ if (gt $.Params.platforms 0) }}
 							<p>
-								<strong>Developer:</strong><br/>
-								<a href="{{ $companyUrl }}">{{ $company.Title }}</a><br/>
-								Based in {{ $company.Params.basedin }}
+								<strong>Platforms:</strong><br />
+								{{ range $.Params.platforms }}
+									{{ . }}<br />
+								{{ end }}
 							</p>
+						{{ end }}
+						<p>
+							<strong>Website:</strong><br />
+							<a href="{{ $.Params.website.link }}">{{ $.Params.website.name }}</a>
+						</p>
+						{{ partial "prices.html" . }}
+						{{ if (gt $.Params.social 0 ) }}
 							<p>
-								<strong>Release date:</strong><br/>
-								{{ $.Params.releaseDate }}
+								<strong>Social:</strong><br />
+								{{ range $.Params.social }}
+									<a href="{{ .link }}">{{ .name }}</a><br />
+								{{ end }}
 							</p>
-              {{ if (gt $.Params.platforms 0) }}
-                <p>
-									<strong>Platforms:</strong><br/>
-									{{ range $.Params.platforms }}
-										{{ . }}<br/>
-									{{ end }}
-                </p>
-              {{ end }}
-							<p>
-								<strong>Website:</strong><br/>
-								<a href="{{ $.Params.website.link }}">{{ $.Params.website.name }}</a>
-							</p>
-              {{ partial "prices.html" . }}
-              {{ if (gt $.Params.social 0 ) }}
-                <p>
-									<strong>Social:</strong><br/>
-									{{ range $.Params.social }}
-										<a href="{{ .link }}">{{ .name }}</a><br/>
-									{{ end }}
-                </p>
-              {{ end }}
-						</div>
-						<div class="uk-width-medium-4-6">
-              {{ .Content }}
-              {{ if (gt $.Params.features 0) }}
-                <h2>Features</h2>
-                <ul>
-                  {{ range $.Params.features }}
-                    <li>{{ . }}</li>
-                  {{ end }}
-                </ul>
-              {{ end }}
-						</div>
+						{{ end }}
 					</div>
-
-					<hr>
-
-          <h2 id="trailers">Videos</h2>
-          {{ partial "trailers.html" . }}
-          <hr>
-
-          <h2 id="images">Images</h2>
-          {{ partial "images.html" . }}
-					<hr>
-
-					<h2 id="logo">Logo &amp; Icon</h2>
-          {{ partial "logos.html" . }}
-          <hr>
-          
-          {{ if $.Params.awards }}
-            {{ if gt $.Params.awards 0 }}	
-              <h2 id="awards">Awards &amp; Recognition</h2>
-              {{ partial "awards.html" . }}
-              <hr>
-            {{ end }}
-          {{ end }}
-          
-          {{ if $.Params.quotes }}
-            {{ if gt $.Params.quotes 0 }}	
-              <h2 id="quotes">Selected Articles</h2>
-              {{ partial "quotes.html" . }}
-              <hr>
-            {{ end }}
-          {{ end }}
-
-          {{ if $.Params.additionals }}
-            {{ if gt $.Params.additionals 0 }}	
-              <h2 id="quotes">Additional Links</h2>
-              {{ partial "additionals.html" . }}
-              <hr>
-            {{ end }}
-          {{ end }}
-
-          {{ if ne $.Params.monetization nil }}
-            <h2 id="monetize">Monetization Permission</h2>
-            {{ if eq $.Params.monetization "false" }}
-              <p>
-                {{ $company.Title }} does currently not allow for the contents of {{ .Title }} to be published through video broadcasting services.
-              </p>
-            {{ end }}
-            {{ if eq $.Params.monetization "ask" }}
-              <p>
-                {{ $company.Title }} does allow the contents of this game to be published through video broadcasting services only with direct written permission from {{ $company.Title }}. Check at the bottom of this page for contact information.
-              </p>
-            {{ end }}
-            {{ if eq $.Params.monetization "non-commercial" }}
-              <p>
-                {{ $company.Title }} allows for the contents of {{ .Title }} to be published through video broadcasting services for non-commercial purposes only. Monetization of any video created containing assets from {{ .Title }} is not allowed.
-              </p>
-            {{ end }}
-            {{ if eq $.Params.monetization "monetize" }}
-              <p>
-                {{ $company.Title }} allows for the contents of {{ .Title }} to be published through video broadcasting services for any commercial or non-commercial purposes. Monetization of videos created containing assets from {{ .Title }} is legally & explicitly allowed by {{ $company.Title }}.
-              </p>
-            {{ end }}
-          {{ end }}
-
-					<h2 id="about">About {{ $company.Title }}</h2>
-					<p>
-            <strong>Boilerplate</strong><br/>
-            {{ $company.Description }}
-					</p>
-
-					<p>
-						<strong>More information</strong><br/>
-						More information on {{ $company.Title }}, our logo & relevant media are available <a href="{{ $companyUrl }}">here</a>.
-					</p>
-					
-					<hr>
-
-					<div class="uk-grid">
-						<div class="uk-width-medium-1-2">
-              <h2 id="credits">{{ .Title }} Credits</h2>
-              {{ range $.Params.credits }}
-              <p>
-                <strong>{{ .person }}</strong><br/>
-                {{ .role }}
-              </p>
-              {{ end }}
-            </div>
-						<div class="uk-width-medium-1-2">
-              <h2 id="contact">Contact</h2>
-              {{ partial "contacts.html" . }}
-            </div>
+					<div class="uk-width-medium-4-6">
+						{{ .Content }}
+						{{ if (gt $.Params.features 0) }}
+							<h2>Features</h2>
+							<ul>
+								{{ range $.Params.features }}
+									<li>{{ . }}</li>
+								{{ end }}
+							</ul>
+						{{ end }}
 					</div>
-
-					<hr>
-
-					<p>{{ partial "footer.html" . }}</p>
 				</div>
+
+				<hr>
+
+				<h2 id="trailers">Videos</h2>
+				{{ partial "trailers.html" . }}
+				<hr>
+
+				<h2 id="images">Images</h2>
+				{{ partial "images.html" . }}
+				<hr>
+
+				<h2 id="logo">Logo &amp; Icon</h2>
+				{{ partial "logos.html" . }}
+				<hr>
+
+				{{ if $.Params.awards }}
+					{{ if gt $.Params.awards 0 }}
+						<h2 id="awards">Awards &amp; Recognition</h2>
+						{{ partial "awards.html" . }}
+						<hr>
+					{{ end }}
+				{{ end }}
+
+				{{ if $.Params.quotes }}
+					{{ if gt $.Params.quotes 0 }}
+						<h2 id="quotes">Selected Articles</h2>
+						{{ partial "quotes.html" . }}
+						<hr>
+					{{ end }}
+				{{ end }}
+
+				{{ if $.Params.additionals }}
+					{{ if gt $.Params.additionals 0 }}
+						<h2 id="quotes">Additional Links</h2>
+						{{ partial "additionals.html" . }}
+						<hr>
+					{{ end }}
+				{{ end }}
+
+				{{ if ne $.Params.monetization nil }}
+					<h2 id="monetize">Monetization Permission</h2>
+					{{ if eq $.Params.monetization "false" }}
+						<p>
+							{{ $company.Title }} does currently not allow for the contents of {{ .Title }} to be published through video
+							broadcasting services.
+						</p>
+					{{ end }}
+					{{ if eq $.Params.monetization "ask" }}
+						<p>
+							{{ $company.Title }} does allow the contents of this game to be published through video broadcasting services only
+							with direct written permission from {{ $company.Title }}. Check at the bottom of this page for contact
+							information.
+						</p>
+					{{ end }}
+					{{ if eq $.Params.monetization "non-commercial" }}
+						<p>
+							{{ $company.Title }} allows for the contents of {{ .Title }} to be published through video broadcasting services
+							for non-commercial purposes only. Monetization of any video created containing assets from {{ .Title }} is not
+							allowed.
+						</p>
+					{{ end }}
+					{{ if eq $.Params.monetization "monetize" }}
+						<p>
+							{{ $company.Title }} allows for the contents of {{ .Title }} to be published through video broadcasting
+							services for any commercial or non-commercial purposes. Monetization of videos created containing assets from
+							{{ .Title }} is legally & explicitly allowed by {{ $company.Title }}.
+						</p>
+					{{ end }}
+				{{ end }}
+
+				<h2 id="about">About {{ $company.Title }}</h2>
+				<p>
+					<strong>Boilerplate</strong><br />
+					{{ $company.Description }}
+				</p>
+
+				<p>
+					<strong>More information</strong><br />
+					More information on {{ $company.Title }}, our logo & relevant media are available <a href="{{ $companyUrl }}">here</a>.
+				</p>
+
+				<hr>
+
+				<div class="uk-grid">
+					<div class="uk-width-medium-1-2">
+						<h2 id="credits">{{ .Title }} Credits</h2>
+						{{ range $.Params.credits }}
+							<p>
+								<strong>{{ .person }}</strong><br />
+								{{ .role }}
+							</p>
+						{{ end }}
+					</div>
+					<div class="uk-width-medium-1-2">
+						<h2 id="contact">Contact</h2>
+						{{ partial "contacts.html" . }}
+					</div>
+				</div>
+
+				<hr>
+
+				<p>{{ partial "footer.html" . }}</p>
 			</div>
 		</div>
+	</div>
 
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>		
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.min.js"></script>
-		<script type="text/javascript">
-			$( document ).ready(function() {
-				var container = $('.images');
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var container = $('.images');
 
-				container.imagesLoaded( function() {
-					container.masonry({
-						itemSelector: '.uk-width-medium-1-2',
-					});
+			container.imagesLoaded(function () {
+				container.masonry({
+					itemSelector: '.uk-width-medium-1-2',
 				});
 			});
-		</script>	</body>
+		});
+	</script>
+</body>
+
 </html>
 {{ end }}
