@@ -11,6 +11,7 @@
 	<title>{{ $.Title }}</title>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/1.2.0/css/uikit.gradient.min.css" rel="stylesheet" type="text/css">
 	<link href="{{ trim $.Site.BaseURL "/" }}/asset/style.css" rel="stylesheet" type="text/css">
+	{{ template "_internal/google_analytics_async.html" . }}
 </head>
 
 <body>

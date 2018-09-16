@@ -20,6 +20,7 @@
 			<link href="{{ printf "%s/%s" $urlStatic .Name }}" rel="stylesheet" type="text/css">
 		{{ end }}
 	{{ end }}
+	{{ template "_internal/google_analytics_async.html" . }}
 </head>
 
 <body>
