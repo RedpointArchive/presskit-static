@@ -50,6 +50,11 @@
                 <li><a href="#quotes">Selected Articles</a></li>
               {{ end }}
             {{ end }}
+            {{ if $.Params.additionals }}
+              {{ if gt $.Params.additionals 0 }}
+                <li><a href="#additionals">Additional Links</a></li>
+              {{ end }}
+            {{ end }}
             {{ if ne $.Params.monetization nil }}
               <li><a href="#monetize">Monetization Permission</a></li>
             {{ end }}
@@ -136,6 +141,14 @@
             {{ if gt $.Params.quotes 0 }}	
               <h2 id="quotes">Selected Articles</h2>
               {{ partial "quotes.html" . }}
+              <hr>
+            {{ end }}
+          {{ end }}
+
+          {{ if $.Params.additionals }}
+            {{ if gt $.Params.additionals 0 }}	
+              <h2 id="quotes">Additional Links</h2>
+              {{ partial "additionals.html" . }}
               <hr>
             {{ end }}
           {{ end }}
