@@ -1,0 +1,26 @@
+name: Presskit Static
+
+min_version: 0.25.1
+
+description: A Hugo template for generating static presskit()-like sites.
+
+tags:
+	- presskit
+	- press
+	- dopresskit
+	- presskit()
+
+features:
+	- generate presskit
+
+license: MIT
+licenselink: 'https://github.com/RedpointGames/presskit-static/blob/master/LICENSE.md'
+
+author:
+	name: RedpointGames
+	homepage: 'https://redpoint.games/'
+
+original:
+	name: presskit()
+	homepage: 'http://dopresskit.com/'
+	repo: 'https://github.com/ramiismail/dopresskit'
