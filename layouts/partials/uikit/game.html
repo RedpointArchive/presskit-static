@@ -81,8 +81,10 @@
 							Based in {{ $company.Params.basedin }}
 						</p>
 						<p>
-							<strong>Release date:</strong><br />
-							{{ $.Params.releaseDate }}
+							{{- if isset $.Params "releasedate" -}}
+								<strong>Release date:</strong><br />
+								{{ $.Params.releaseDate }}
+							{{- end -}}
 						</p>
 						{{ if (gt $.Params.platforms 0) }}
 							<p>
