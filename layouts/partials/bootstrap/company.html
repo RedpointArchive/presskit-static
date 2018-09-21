@@ -4,146 +4,151 @@
 {{ $urlImages := printf "%s/images" $urlStatic }}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{{ .Description }}">
-    <meta name="author" content="{{ $.Title }}">
-		<title>{{ $.Title }}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.css">
-    <link href="{{ trim $.Site.BaseURL "/" }}/asset/style-bootstrap.css" rel="stylesheet" type="text/css">
-		{{ $styles := (readDir $pathStyles) }}
-		{{ range $styles }}
-			{{ $ext := (substr .Name (sub (len .Name) 4)) }}
-			{{ if (eq $ext ".css") }}
-				<link href="{{ printf "%s/%s" $urlStatic .Name }}" rel="stylesheet" type="text/css">
-			{{ end }}
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="{{ .Description }}">
+	<meta name="author" content="{{ $.Title }}">
+	<title>{{ $.Title }}</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.css">
+	<link href="{{ trim $.Site.BaseURL "/" }}/asset/style-bootstrap.css" rel="stylesheet" type="text/css">
+	{{ $styles := (readDir $pathStyles) }}
+	{{ range $styles }}
+		{{ $ext := (substr .Name (sub (len .Name) 4)) }}
+		{{ if (eq $ext ".css") }}
+			<link href="{{ printf "%s/%s" $urlStatic .Name }}" rel="stylesheet" type="text/css">
 		{{ end }}
-  </head>
-	<body>
-		<div class="container">
-      <div class="row">
-        <div class="col-12 col-sm-3" id="navigation">
-          <h1 class="nav-up">{{ $.Title }}</h1>
-          <a class="nav-up" href="{{ $.Params.website.link }}" target="_self">{{ $.Params.website.name }}</a></strong>
-          <ul class="nav flex-column mt-4">
-						<li class="nav-item"><a class="nav-link" href="#factsheet">Factsheet</a></li>
-						<li class="nav-item"><a class="nav-link" href="#description">Description</a></li>
-						<li class="nav-item"><a class="nav-link" href="#history">History</a></li>
-						<li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-						<li class="nav-item"><a class="nav-link" href="#trailers">Videos</a></li>
-						<li class="nav-item"><a class="nav-link" href="#images">Images</a></li>
-						<li class="nav-item"><a class="nav-link" href="#logo">Logo &amp; Icon</a></li>
-						<li class="nav-item"><a class="nav-link" href="#credits">Team</a></li>
-						<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-					</ul>
-        </div>
-        <div class="col-12 col-sm-9 p-0" id="main">
-          {{ $header := (readDir $pathImages) }}
-          {{ if (where $header "Name" "header.png") }}
-          <img src="{{ $urlImages }}/header.png" class="img-fluid" />
-          {{ end }}
-          <div class="col-12">
-            <div class="row mt-0">
-							<div class="col-12 col-md-5 col-lg-4 col-xl-3">
-								<h2 id="factsheet">Factsheet</h2>
+	{{ end }}
+	{{ template "_internal/google_analytics_async.html" . }}
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-sm-3" id="navigation">
+				<h1 class="nav-up">{{ $.Title }}</h1>
+				<a class="nav-up" href="{{ $.Params.website.link }}" target="_self">{{ $.Params.website.name }}</a></strong>
+				<ul class="nav flex-column mt-4">
+					<li class="nav-item"><a class="nav-link" href="#factsheet">Factsheet</a></li>
+					<li class="nav-item"><a class="nav-link" href="#description">Description</a></li>
+					<li class="nav-item"><a class="nav-link" href="#history">History</a></li>
+					<li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+					<li class="nav-item"><a class="nav-link" href="#trailers">Videos</a></li>
+					<li class="nav-item"><a class="nav-link" href="#images">Images</a></li>
+					<li class="nav-item"><a class="nav-link" href="#logo">Logo &amp; Icon</a></li>
+					<li class="nav-item"><a class="nav-link" href="#credits">Team</a></li>
+					<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+				</ul>
+			</div>
+			<div class="col-12 col-sm-9 p-0" id="main">
+				{{ $header := (readDir $pathImages) }}
+				{{ if (where $header "Name" "header.png") }}
+					<img src="{{ $urlImages }}/header.png" class="img-fluid" />
+				{{ end }}
+				<div class="col-12">
+					<div class="row mt-0">
+						<div class="col-12 col-md-5 col-lg-4 col-xl-3">
+							<h2 id="factsheet">Factsheet</h2>
+							<p>
+								<strong>Developer:</strong><br />
+								<a href="{{ $.Params.website.link }}">{{ $.Params.title }}</a><br />
+								Based in {{ $.Params.basedin }}
+							</p>
+							<p>
+								<strong>Founding date:</strong><br />
+								{{ $.Params.foundingdate }}
+							</p>
+							<p>
+								<strong>Website:</strong><br />
+								<a href="{{ $.Params.website.link }}">{{ $.Params.website.name }}</a>
+							</p>
+							<p>
+								<strong>Press / Business contact:</strong><br />
+								<a href="mailto:{{ $.Params.pressContact }}">{{ $.Params.pressContact }}</a>
+							</p>
+							{{ if (gt $.Params.social 0 ) }}
 								<p>
-									<strong>Developer:</strong><br/>
-									<a href="{{ $.Params.website.link }}">{{ $.Params.title }}</a><br/>
-									Based in {{ $.Params.basedin }}
+									<strong>Social:</strong><br />
+									{{ range $.Params.social }}
+										<a href="{{ .link }}">{{ .name }}</a><br />
+									{{ end }}
 								</p>
+							{{ end }}
+							{{ if (gt $.Params.releases 0 ) }}
 								<p>
-									<strong>Founding date:</strong><br/>
-									{{ $.Params.foundingdate }}
+									<strong>Releases:</strong><br />
+									{{ range $.Params.releases }}
+										<a href="{{ relref $.Page . }}">{{ ($.Site.GetPage "page" .).Title }}</a><br />
+									{{ end }}
 								</p>
-								<p>
-									<strong>Website:</strong><br/>
-									<a href="{{ $.Params.website.link }}">{{ $.Params.website.name }}</a>
-								</p>
-								<p>
-									<strong>Press / Business contact:</strong><br/>
-									<a href="mailto:{{ $.Params.pressContact }}">{{ $.Params.pressContact }}</a>
-								</p>
-								{{ if (gt $.Params.social 0 ) }}
-									<p>
-										<strong>Social:</strong><br/>
-										{{ range $.Params.social }}
-											<a href="{{ .link }}">{{ .name }}</a><br/>
-										{{ end }}
-									</p>
-								{{ end }}
-								{{ if (gt $.Params.releases 0 ) }}
-									<p>
-										<strong>Releases:</strong><br />
-										{{ range $.Params.releases }}
-											<a href="{{ relref $.Page . }}">{{ ($.Site.GetPage "page" .).Title }}</a><br />
-										{{ end }}
-									</p>
-								{{ end }}
-							</div>
-							<div class="col-12 col-md-7 col-lg-8 col-xl-9">
-								{{ .Content }}
-								{{ if (gt $.Params.releases 0 ) }}
+							{{ end }}
+						</div>
+						<div class="col-12 col-md-7 col-lg-8 col-xl-9">
+							{{ .Content }}
+							{{ if (gt $.Params.releases 0 ) }}
 								<h2 id="projects">Projects</h2>
-									<ul>
+								<ul>
 									{{ range $.Params.releases }}
 										<li><a href="{{ relref $.Page . }}">{{ ($.Site.GetPage "page" .).Title }}</a></li>
 									{{ end }}
-									</ul>
-								{{ end }}
-							</div>
+								</ul>
+							{{ end }}
 						</div>
+					</div>
 
-						<hr>
+					<hr>
 
-						<h2 id="trailers">Videos</h2>
-						{{ partial "videos.html" . }}
-						<hr>
+					<h2 id="trailers">Videos</h2>
+					{{ partial "videos.html" . }}
+					<hr>
 
-						<h2 id="images">Images</h2>
-						{{ partial "images.html" . }}
-						<hr>
+					<h2 id="images">Images</h2>
+					{{ partial "images.html" . }}
+					<hr>
 
-						<h2 id="logo">Logo &amp; Icon</h2>
-						{{ partial "logos.html" . }}
-						<hr>
-						
-						<div class="row">
-							<div class="col-12 col-sm-6">
-								<h2 id="credits">Members</h2>
-								{{ range $.Params.team }}
+					<h2 id="logo">Logo &amp; Icon</h2>
+					{{ partial "logos.html" . }}
+					<hr>
+
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<h2 id="credits">Members</h2>
+							{{ range $.Params.team }}
 								<p>
-									<strong>{{ .person }}{{ if .mail }} (<a href="mailto:{{ .mail }}">Email</a>){{ end }}</strong><br/>
+									<strong>{{ .person }}{{ if .mail }} (<a href="mailto:{{ .mail }}">Email</a>){{ end }}</strong><br />
 									{{ .role }}
 								</p>
-								{{ end }}
-							</div>
-							<div class="col-12 col-sm-6">
-								<h2 id="contact">Contact</h2>
-								{{ partial "contacts.html" . }}
-							</div>
+							{{ end }}
 						</div>
-
-						<hr>
-
-						<p>{{ partial "footer.html" . }}</p>
+						<div class="col-12 col-sm-6">
+							<h2 id="contact">Contact</h2>
+							{{ partial "contacts.html" . }}
+						</div>
 					</div>
+
+					<hr>
+
+					<p>{{ partial "footer.html" . }}</p>
 				</div>
 			</div>
 		</div>
- 
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.min.js"></script>
-		<script type="text/javascript">
-			$( document ).ready(function() {
-				var container = $('.images');
+	</div>
 
-				container.imagesLoaded( function() {
-					container.masonry({
-						itemSelector: '.image',
-					});
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var container = $('.images');
+
+			container.imagesLoaded(function () {
+				container.masonry({
+					itemSelector: '.image',
 				});
 			});
-		</script>	</body>
+		});
+	</script>
+</body>
+
 </html>
