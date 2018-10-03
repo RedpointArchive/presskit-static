@@ -1,0 +1,13 @@
+{{ range $.Params.additionals }}
+<p>
+  <strong>{{ .title }}</strong><br/>
+  {{ .description }} <br/>
+  {{ if (ne .link nil) }}
+    {{ if (ne .linkText nil) }}
+    <a href="{{ .link }}">{{ .linkText }}</a>
+    {{ else }}
+    <a href="{{ .link }}">{{ .link }}</a>
+    {{ end }}
+  {{ end }}
+</p>
+{{ end }}

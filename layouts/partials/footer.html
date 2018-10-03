@@ -1,1 +1,7 @@
-<a href="http://dopresskit.com/">presskit()</a> by Rami Ismail (<a href="http://www.vlambeer.com/">Vlambeer</a>) - <a href="https://github.com/RedpointGames/presskit-static">presskit-static()</a> by June Rhodes (<a href="https://redpoint.games/">Redpoint Games</a>) - also thanks to <a href="http://www.vlambeer.com/press/sheet.php?p=credits" target="_blank">these fine folks</a>
+{{- if isset $.Site.Params "legalnotice" -}}
+    <a href="{{ $.Site.Params.LegalNotice.Link }}">{{ $.Site.Params.LegalNotice.Name }}</a> -
+{{ end -}}
+{{- if isset $.Site.Params "privacystatement" -}}
+    <a href="{{ $.Site.Params.PrivacyStatement.Link }}">{{ $.Site.Params.PrivacyStatement.Name }}</a> -
+{{ end -}}
+<a href="https://github.com/BrokenVector/presskit-static">presskit-static()</a>

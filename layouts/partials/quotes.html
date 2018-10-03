@@ -2,7 +2,7 @@
   {{ range $.Params.quotes }}
   <li>
     "{{ .quote }}" <br/>
-    <cite>- {{ .name }}, <a href="{{ .link }}">{{ .website }}</a></cite>
+    <cite>- {{ .name }}{{- if isset . "link" -}}, <a href="{{ .link }}">{{ .website }}{{- end -}}</a></cite>
   </li>
   {{ end }}
 </ul>

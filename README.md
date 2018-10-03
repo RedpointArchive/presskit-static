@@ -16,9 +16,9 @@ Create a new Hugo site with:
 hugo new site
 ```
 
-With your new site created, [download the presskit-static ZIP](https://github.com/RedpointGames/presskit-static/archive/master.zip) and place it in the `themes/` directory such that `themes/presskit-static/theme.toml` exists.
+With your new site created, [download the presskit-static ZIP](https://github.com/RedpointGames/presskit-static/archive/master.zip) and place it in the `themes/` directory such that `themes/presskit-static/theme.yaml` exists.
 
-Add the line `theme = "presskit-static"` to your `config.toml` file.
+Add the line `theme = "presskit-static"` to your `config.toml` or `theme: "presskit-static"` to your `config.yaml` file.
 
 You can run Hugo as a server locally while you're writing content to preview it by running `hugo server -t presskit-static` in the directory where your project is located.
 
